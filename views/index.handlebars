@@ -1,0 +1,90 @@
+    
+    <div id="wrapper">
+      <h1>Scrappy Kotaku:</h1>
+      <h2><i>People's Number Two Source for Kotaku News</i></h2>
+
+
+      <div class="container">
+    <div id="wrapper">
+      {{#each articles}}
+<div id="articles"></div>
+<div id="accordion" role="tablist" aria-multiselectable="true">
+  
+  <div class="card">
+    <div class="card-header" role="tab" id="headingTwo">
+      <h5 class="mb-0">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        {{!-- <div id="title"></div> --}}
+          {{this.title}}
+        </a>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="card-block">
+          {{this.summary}}
+        <p><a href="{{this.link}}" target="_new">Click here</a> to read the full article</p>
+      </div>
+    </div>
+  </div>
+</div>
+{{/each}}
+
+<div class="comment-container">
+  <p>
+      
+        <form id="form-add-{{_id}}" action="add/comment/{{_id}}" method="post">
+          <div class="row">
+            <div class="input-field col-sm-2"></div>
+            <div class="input-field col-sm-8">
+              <input id="author_name" type="text" name="name" class="author">
+              <label for="author_name">Enter Your Name:</label>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="input-field col-sm-2"></div>
+            <div class="input-field col-sm-8">
+              <input id="author_comment" type="text" name="comment" class="textarea">
+              <label for="author_comment">Enter Your Comment:</label>
+            </div>
+          </div>
+            <div class="row">
+              <div class="input-field col-sm-2"></div>
+              <div class="input-field col-sm-8">
+              <center><input class="btn add-comment-button" data-id="{{_id}}" type="submit" value="Submit" id="submit-btn"></center>
+              </div>
+            </div>
+        </form>
+      </div>
+  </p>
+  <p>
+      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2">
+        View Comments
+      </button>
+      <div class="collapse" id="collapseExample2">
+        {{!-- {{#if comments}} --}}
+      <ul class="collection">
+        {{!-- {{#each comments}} --}}
+        <li class="collection-item">
+          <b>{{author}}</b>
+
+         
+            </form>
+          </span>
+          {{content}}
+        </li>
+      </ul>
+      {{!-- {{else}} --}}
+        <p>No Comments</p>
+      {{!-- {{/if}} --}}
+      </div>
+  </p>
+</div>
+    </div>
+  </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+   <script src="app.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+
