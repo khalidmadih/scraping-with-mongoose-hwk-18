@@ -45,7 +45,7 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 
-mongoose.connect("mongodb://localhost/Kotaku_db");
+mongoose.connect("mongodb://heroku_s2zmt6r6:v01t8t62egvaju5qjdps9qll7k@ds161901.mlab.com:61901/heroku_s2zmt6r6");
 var db = mongoose.connection;
 
 // Show any mongoose errors
