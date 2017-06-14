@@ -10,7 +10,6 @@ var bodyParser = require("body-parser");
 var path = require("path");
 var logger = require("morgan");
 var mongoose = require("mongoose");
-var bodyParser = require("body-parser");
 var methodOverride = require("method-override");
 // Requiring our Note and Article models
 var Note = require("./models/KotakuNote.js");
@@ -58,7 +57,7 @@ db.once("open", function() {
   console.log("Mongoose connection successful.");
 });
 
-var port = 5000;
+var port = process.env.PORT || 5000 ;
 
 var app = express();
 
