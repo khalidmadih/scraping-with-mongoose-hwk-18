@@ -4,23 +4,25 @@
  * =============================================== */
 
 // Dependencies
-var express = require("express");
+// var express = require("express");
 var exphbs = require ("express-handlebars");
-var bodyParser = require("body-parser");
+// var bodyParser = require("body-parser");
 var path = require("path");
-var logger = require("morgan");
-var mongoose = require("mongoose");
+// var logger = require("morgan");
+// var mongoose = require("mongoose");
 var methodOverride = require("method-override");
-// Requiring our Note and Article models
+// // Requiring our Note and Article models
 var Note = require("./models/KotakuNote.js");
 var KotakuArticle = require("./models/KotakuArticle.js");
+var express = require("express");
+var bodyParser = require("body-parser");
+var logger = require("morgan");
+var mongoose = require("mongoose");
 // Our scraping tools
 var request = require("request");
 var cheerio = require("cheerio");
 // Set mongoose to leverage built in JavaScript ES6 Promises
 mongoose.Promise = Promise;
-
-
 
 
 // Initialize Express
@@ -34,16 +36,16 @@ app.use(bodyParser.urlencoded({
 }));
 
 // Make public a static dir
-app.use(express.static("views"));
+app.use(express.static("public"));
 
 // Serve static contents
-app.use(express.static(process.cwd() + "/public"));
+// app.use(express.static(process.cwd() + "public"));
 
 // Express Handlebars
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-
+// mongoose.connect("mongodb://localhost/hinico");
 mongoose.connect("mongodb://heroku_s2zmt6r6:v01t8t62egvaju5qjdps9qll7k@ds161901.mlab.com:61901/heroku_s2zmt6r6");
 var db = mongoose.connection;
 
@@ -59,48 +61,15 @@ db.once("open", function() {
 
 var port = process.env.PORT || 5000 ;
 
-var app = express();
 
-// Import routes and give the server access to them.
-var routes = require("./controllers/controller.js");
 
-app.use("/", routes);
 
 app.listen(port);
 
 
 
 
-// // Instantiate our app
-// var app = express();
 
-// // override POST to have DELETE and PUT
-// app.use(methodOverride('_method'));
-
-// // view engine setup
-// app.set('views', path.join(__dirname, 'views'));
-
-// // Set Handlebars.
-// var exphbs = require("express-handlebars");
-// app.engine("handlebars", exphbs({ 
-//     defaultLayout: "main" 
-// }));
-// app.set('view engine', 'handlebars');
-
-// Serve static content for the app from the "public" directory in the application directory.
-// app.use(express.static(__dirname + "views"));
-
-// // Parse application/x-www-form-urlencoded
-// app.use(bodyParser.urlencoded({ extended: false }));
-
-// // Override with POST having ?_method=DELETE
-// app.use(methodOverride("_method"));
-
-// var exphbs = require("express-handlebars");
-
-// app.engine("handlebars", exphbs({ defaultLayout: "main" }));
-
-// app.set("view engine", "handlebars");
 
 
 // Override with POST having ?_method=DELETE
@@ -111,20 +80,20 @@ var exphbs = require("express-handlebars");
 
 app.engine("handlebars", exphbs({ defaultLayout: "main", layoutsDir: __dirname +'/views/layouts' }));
 app.set("view engine", "handlebars");
-app.set("views", path.join(__dirname, "views"));
+// app.set("views", path.join(__dirname, "views"));
 
 // Serve static content for the app from the "public" directory in the application directory.
-app.use(express.static(__dirname + "/views/layouts"));
+// app.use(express.static(__dirname + "/views/layouts"));
 
 
 
 // Routes
 // ======
 
-// A GET request to scrape the echojs website
+// A GET request to scrape the kotaku website
 app.get("/scrape", function(req, res) {
   // First, we grab the body of the html with request
-  request("http://kotaku.com/", function(error, response, html) {
+  request("http://kotaku.com", function(error, response, html) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(html);
     // Now, we grab every h2 within an article tag, and do the following:
@@ -156,7 +125,7 @@ app.get("/scrape", function(req, res) {
     });
   });
   // Tell the browser that we finished scraping the text
-  res.send("Scrape Complete");
+  res.redirect("Kotakuarticles");
 });
 
 // This will get the articles we scraped from the mongoDB
@@ -169,7 +138,8 @@ app.get("/Kotakuarticles", function(req, res) {
     }
     // Or send the doc to the browser as a json object
     else {
-      res.json(doc);
+      res.render("index",{articles:doc})
+      // res.json(doc);
     }
   });
 });

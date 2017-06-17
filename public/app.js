@@ -15,6 +15,16 @@ $.getJSON("/KotakuArticles", function(data) {
   }
 });
 
+$(document).on("click", "button", function() {
+  console.log("lckskekjdlif");
+  $.ajax({
+    method: "GET",
+    url: "/scrape/"
+  }).done(function(){});
+
+});
+
+
 
 // Whenever someone clicks a p tag
 $(document).on("click", "p", function() {
@@ -79,3 +89,4 @@ $(document).on("click", "#savenote", function() {
   $("#bodyinput").val("");
 });
  
+// module.exports = router;

@@ -8,7 +8,7 @@
         display: inline-block;
         overflow: auto;
         width: 60%;
-        height: 700px;
+        /*height: 700px;*/
       }
       #notes {
         float: right;
