@@ -7,7 +7,7 @@
 // })
 
 // Grab the articles as a json
-$.getJSON("/", function(data) {
+$.getJSON("/KotakuArticles", function(data) {
   // For each one
   for (var i = 0; i < data.length; i++) {
     // Display the apropos information on the page
@@ -38,7 +38,7 @@ $(document).on("click", "p", function() {
   // Now make an ajax call for the Article
   $.ajax({
     method: "GET",
-    url: "/" + thisId
+    url: "/KotakuArticles" + thisId
   })
     // With that done, add the note information to the page
     .done(function(data) {
@@ -70,7 +70,7 @@ $(document).on("click", "#savenote", function() {
   // Run a POST request to change the note, using what's entered in the inputs
   $.ajax({
     method: "POST",
-    url: "/" + thisId,
+    url: "/KotakuArticles" + thisId,
     data: {
       // Value taken from title input
       title: $("#titleinput").val(),

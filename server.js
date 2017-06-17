@@ -6,10 +6,8 @@
 // Dependencies
 var express = require("express");
 var exphbs = require ("express-handlebars");
-// var bodyParser = require("body-parser");
 var path = require("path");
-// var logger = require("morgan");
-// var mongoose = require("mongoose");
+var logger = require("morgan");
 var methodOverride = require("method-override");
 // // Requiring our Note and Article models
 var Note = require("./models/KotakuNote.js");
@@ -125,11 +123,11 @@ app.get("/scrape", function(req, res) {
     });
   });
   // Tell the browser that we finished scraping the text
-  res.redirect("");
+  res.redirect("/KotakuArticles");
 });
 
 // This will get the articles we scraped from the mongoDB
-app.get("/", function(req, res) {
+app.get("/KotakuArticles", function(req, res) {
   // Grab every doc in the Articles array
   KotakuArticle.find({}, function(error, doc) {
     // Log any errors
@@ -145,7 +143,7 @@ app.get("/", function(req, res) {
 });
 
 // Grab an article by it's ObjectId
-app.get("/:id", function(req, res) {
+app.get("/KotakuArticles/:id", function(req, res) {
   // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
   KotakuArticle.findOne({ "_id": req.params.id })
   // ..and populate all of the notes associated with it
@@ -165,7 +163,7 @@ app.get("/:id", function(req, res) {
 
 
 // Create a new note or replace an existing note
-app.post("/:id", function(req, res) {
+app.post("/KotakuArticles/:id", function(req, res) {
   // Create a new note and pass the req.body to the entry
   var newNote = new Note(req.body);
 
